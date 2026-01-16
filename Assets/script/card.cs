@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class card : MonoBehaviour, IPointerClickHandler
 {
     [Header("Card Images")]
-    public Image cardFront;   // Child image (front)
+    public Image cardFront;
 
     [Header("Available Sprites")]
     public List<Sprite> cardSprites = new List<Sprite>();
@@ -18,11 +18,13 @@ public class card : MonoBehaviour, IPointerClickHandler
     [HideInInspector]
     public int spriteIndex;
 
+    [HideInInspector]
+    public CardDeckManager deckManager;
+
     bool isFlipping = false;
 
     void Start()
     {
-        // Card starts face down
         if (cardFront != null)
             cardFront.gameObject.SetActive(false);
     }
@@ -35,20 +37,22 @@ public class card : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!isFlipping && !cardFront.gameObject.activeSelf)
+        if (!isFlipping && !cardFront.gameObject.activeSelf && deckManager != null)
         {
-            StartCoroutine(FlipAnimation());
+            StartCoroutine(FlipAnimation(true));
+            deckManager.CardFlipped(this);
         }
     }
 
-    IEnumerator FlipAnimation()
+    // Flip card
+    IEnumerator FlipAnimation(bool turnOn)
     {
         isFlipping = true;
 
         float time = 0f;
         Vector3 startScale = transform.localScale;
 
-        // Shrink (first half)
+        // Shrink
         while (time < flipDuration)
         {
             time += Time.deltaTime;
@@ -57,12 +61,13 @@ public class card : MonoBehaviour, IPointerClickHandler
             yield return null;
         }
 
-        // Turn front ON at mid-flip
-        cardFront.gameObject.SetActive(true);
+        // Turn on/off front
+        if (cardFront != null)
+            cardFront.gameObject.SetActive(turnOn);
 
         time = 0f;
 
-        // Expand (second half)
+        // Expand
         while (time < flipDuration)
         {
             time += Time.deltaTime;
@@ -73,5 +78,11 @@ public class card : MonoBehaviour, IPointerClickHandler
 
         transform.localScale = startScale;
         isFlipping = false;
+    }
+
+    // Flip back (called by deck manager)
+    public void FlipBack()
+    {
+        StartCoroutine(FlipAnimation(false));
     }
 }

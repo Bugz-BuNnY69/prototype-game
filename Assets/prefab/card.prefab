@@ -91,11 +91,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::card
   cardFront: {fileID: 3922882990633361233}
   cardSprites:
-  - {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   flipDuration: 0.1
   spriteIndex: 0
+  deckManager: {fileID: 0}
 --- !u!1 &6886074625444892644
 GameObject:
   m_ObjectHideFlags: 0
