@@ -89,7 +89,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e268d86661931c46a85884738a6e07a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::card
-  childImage: {fileID: 3922882990633361233}
+  cardFront: {fileID: 3922882990633361233}
+  cardSprites:
+  - {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  flipDuration: 0.1
+  spriteIndex: 0
 --- !u!1 &6886074625444892644
 GameObject:
   m_ObjectHideFlags: 0
