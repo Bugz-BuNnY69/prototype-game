@@ -21,6 +21,9 @@ public class card : MonoBehaviour, IPointerClickHandler
     [HideInInspector]
     public CardDeckManager deckManager;
 
+    [HideInInspector]
+    public bool isMatched = false; // NEW
+
     bool isFlipping = false;
 
     void Start()
@@ -37,7 +40,7 @@ public class card : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!isFlipping && !cardFront.gameObject.activeSelf && deckManager != null)
+        if (!isFlipping && !cardFront.gameObject.activeSelf && !isMatched && deckManager != null)
         {
             StartCoroutine(FlipAnimation(true));
             deckManager.CardFlipped(this);
@@ -83,6 +86,15 @@ public class card : MonoBehaviour, IPointerClickHandler
     // Flip back (called by deck manager)
     public void FlipBack()
     {
-        StartCoroutine(FlipAnimation(false));
+        if (!isMatched)
+            StartCoroutine(FlipAnimation(false));
+    }
+
+    // NEW: Keep card flipped and disable interaction
+    public void SetMatched()
+    {
+        isMatched = true;
+        if (cardFront != null)
+            cardFront.gameObject.SetActive(true);
     }
 }

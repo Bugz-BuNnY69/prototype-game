@@ -95,9 +95,9 @@ public class CardDeckManager : MonoBehaviour
 
         if (card1.spriteIndex == card2.spriteIndex)
         {
-            // Match: remove cards
-            card1.gameObject.SetActive(false); // hide for now (particle later)
-            card2.gameObject.SetActive(false);
+            // Match: keep flipped and disable further clicks
+            card1.SetMatched();
+            card2.SetMatched();
 
             score += 5;
         }
@@ -129,11 +129,12 @@ public class CardDeckManager : MonoBehaviour
 
     void CheckGameEnd()
     {
-        // Win: all cards inactive
+        // Win: all cards matched (flipped)
         bool allCleared = true;
         foreach (var c in spawnedCards)
         {
-            if (c.activeSelf)
+            card cScript = c.GetComponent<card>();
+            if (cScript != null && !cScript.isMatched)
             {
                 allCleared = false;
                 break;
@@ -146,9 +147,13 @@ public class CardDeckManager : MonoBehaviour
         }
         else if (wrongTriesLeft <= 0)
         {
-            // Lose: remove all remaining cards
+            // Lose: disable further interaction
             foreach (var c in spawnedCards)
-                c.SetActive(false);
+            {
+                card cScript = c.GetComponent<card>();
+                if (cScript != null)
+                    cScript.SetMatched(); // lock all cards
+            }
 
             ShowResult("You Lost!");
         }
