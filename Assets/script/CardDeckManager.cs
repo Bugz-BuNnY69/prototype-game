@@ -98,6 +98,8 @@ public class CardDeckManager : MonoBehaviour
             // Match: keep flipped and disable further clicks
             card1.SetMatched();
             card2.SetMatched();
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.match);
+
 
             score += 5;
         }
@@ -106,6 +108,8 @@ public class CardDeckManager : MonoBehaviour
             // Not matched: flip back
             card1.FlipBack();
             card2.FlipBack();
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.mismatch);
+
 
             wrongTriesLeft--;
             score -= 10;
@@ -144,6 +148,8 @@ public class CardDeckManager : MonoBehaviour
         if (allCleared)
         {
             ShowResult("Congrats! You Won!");
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.gameWin);
+
         }
         else if (wrongTriesLeft <= 0)
         {
@@ -156,6 +162,8 @@ public class CardDeckManager : MonoBehaviour
             }
 
             ShowResult("You Lost!");
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.gameOver);
+
         }
     }
 

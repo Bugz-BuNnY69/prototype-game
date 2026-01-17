@@ -42,6 +42,7 @@ public class card : MonoBehaviour, IPointerClickHandler
     {
         if (!isFlipping && !cardFront.gameObject.activeSelf && !isMatched && deckManager != null)
         {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.cardFlip);
             StartCoroutine(FlipAnimation(true));
             deckManager.CardFlipped(this);
         }
