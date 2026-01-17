@@ -43,7 +43,7 @@ public class AudioManager : MonoBehaviour
         {
             bgMusicSource.clip = bgMusic;
             bgMusicSource.loop = true;
-            bgMusicSource.volume = 0.2f;
+            bgMusicSource.volume = 0.1f;
             bgMusicSource.Play();
         }
     }
